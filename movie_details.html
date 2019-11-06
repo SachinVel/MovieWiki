@@ -1,0 +1,107 @@
+<html>
+    <head>
+            <link rel="stylesheet" type="text/css" href="movie_details.css">
+            <script>
+                 window.onload = function(){
+                    var title = localStorage.getItem("title");
+                    var xhttp = new XMLHttpRequest();
+                    
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var movie = JSON.parse(this.responseText);
+                            console.log(movie);
+
+                            document.getElementById("poster").src = movie.Poster;
+                            document.getElementById("title").innerText = movie.Title;
+                            document.getElementById("year").innerText = movie.Year;
+                            document.getElementById("Rated").innerText = movie.Rated;
+                            document.getElementById("releaseDate").innerText = movie.Released;
+                            document.getElementById("director").innerText = movie.Director;
+                            document.getElementById("genre").innerText = movie.Genre;
+                            document.getElementById("language").innerText = movie.Language;
+                            document.getElementById("metaScore").innerText = movie.Metascore;
+                            document.getElementById("production").innerText = movie.Production;
+                            document.getElementById("actors").innerText = movie.Actors;
+                            document.getElementById("imdbRating").innerText = movie.imdbRating;
+                            document.getElementById("runTime").innerText = movie.Runtime;
+                            document.getElementById("plot").innerText = movie.Plot;
+
+
+
+
+                        }
+                    };
+                    xhttp.open("GET", "http://www.omdbapi.com/?apikey=8792202&t="+title, true);
+                    xhttp.send();
+                    document.getElementById("Back").addEventListener("click",function(){
+                        window.location.href = "movie_list.html";
+                    });
+                };
+                    
+            </script>
+    </head>
+    <body>
+        <h1>Movie details</h1>
+        <div class="container">
+            
+            <div class="img-container"><img id="poster"></img></div>
+            <div class="detail-container">
+                <table class="table">
+                    <tr>
+                        <th>Title</th>
+                        <td id="title">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Year</th>
+                            <td id="year">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Rated</th>
+                            <td id="Rated">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Realese Date</th>
+                            <td id="releaseDate">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Director</th>
+                            <td id="director">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Genre</th>
+                            <td id="genre">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Language</th>
+                            <td id="language">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Meta score</th>
+                            <td id="metaScore">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Production</th>
+                            <td id="production">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>Actors</th>
+                            <td id="actors">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>IMDB Rating</th>
+                            <td id="imdbRating">Not Mentioned</td>
+                    </tr>
+                    <tr>
+                            <th>RunTime</th>
+                            <td id="runTime">Not Mentioned</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="plot-container">
+                <h3>Plot</h3>
+                <p id="plot">Not Mentioned</p>
+            </div>
+            <div style="float: left;" class="button-container"><button class="button" id="Back">GO Back</button></div><br>
+        </div>
+    </body>
+</html>

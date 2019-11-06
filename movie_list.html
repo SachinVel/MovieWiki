@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="movie_list.css">
+        <script>
+            var currentPage = 1;//used for pagination
+            var totalLength;
+            var getDetails = function(div){
+                        localStorage.setItem("title",div.title);
+                        window.location.href = "movie_details.html";
+                    }
+             window.onload = function(){
+                 var query = localStorage.getItem("query");
+                    var xhttp = new XMLHttpRequest();
+                    
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = JSON.parse(this.responseText);
+                            if( response.Error != null ){
+                                alert("Movie Search failed due to"+response.Error);
+                            }
+                            var movieArray = response.Search;
+                            var container = document.getElementById("container");
+                            totalLength = movieArray.length;
+                            for (var i = 0; i < movieArray.length; i++){
+                                var movie = movieArray[i];
+                                var div = document.createElement("div");
+                                var img = document.createElement("img");
+                                div.id = i+1;
+                                div.classList.add("movie-tile");
+                                div.title = movie.Title;
+                                img.src = movie.Poster;
+                                img.style.width = "100%";
+                                img.style.height = "100%";
+                                if( i>=8 ){
+                                    div.classList.add("hide");
+                                }
+                                div.addEventListener("click",function(){
+                                    getDetails(this);
+                                });
+                                div.appendChild(img);
+                                container.appendChild(div);
+                            }
+                        }
+                    };
+                    xhttp.open("GET", "http://www.omdbapi.com/?apikey=8792202&s="+query, true);
+                    xhttp.send();
+                    document.getElementById("Back").addEventListener("click",function(){
+                        for( i=currentPage ; i<=(currentPage+7) ; i++ ){
+                            if( document.getElementById(i)!=null ){
+                                document.getElementById(i).classList.add("hide");
+                            }
+                        }
+                        if( currentPage>8 ){
+                            currentPage -= 8;
+                        }
+                        for( i=currentPage ; i<=(currentPage+7) ; i++ ){
+                            if( document.getElementById(i)!=null ){
+                                document.getElementById(i).classList.remove("hide");
+                            }
+                        }
+                    });
+                    document.getElementById("Next").addEventListener("click",function(){
+                        for( i=currentPage ; i<=(currentPage+7) ; i++ ){
+                            if( document.getElementById(i)!=null ){
+                                document.getElementById(i).classList.add("hide");
+                            }
+                        }
+                        if( currentPage<=(totalLength-8) ){
+                            currentPage += 8;
+                        }
+                        for( i=currentPage ; i<=(currentPage+7) ; i++ ){
+                            if( document.getElementById(i)!=null ){
+                                document.getElementById(i).classList.remove("hide");
+                            }
+                        }
+                    });
+            };
+            
+        </script>
+    </head>
+    <body>
+        <h1>Movie html file</h1>
+        <div class="container" id="container" style="clear: both;">
+                
+            
+        </div>
+        <div class="button-container" style="float: left;">
+                <button class="button" id="Back" style="float: left;">Prev</button>
+                <button class="button" id="Next" style="float: right;">Next</button>
+            </div>
+
+    </body>
+</html>

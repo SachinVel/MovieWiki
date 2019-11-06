@@ -1,0 +1,28 @@
+body{
+    background-image: linear-gradient(#007fbf, #026da3);
+    opacity: 0.8;
+}
+.container{
+    position: relative;
+    top: 25%;
+}
+.input-cointainer{
+    text-align: center;
+}
+.title{
+    color: white;
+    text-align: center;
+    font-size: 45px;
+    
+}
+
+.searchbox{
+    position: relative;
+    left: 35%;
+    width: 30%;
+    height: 30px;
+}
+.button{
+    font-size: 20px;
+    color: grey;
+}

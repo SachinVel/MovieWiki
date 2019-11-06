@@ -1,0 +1,25 @@
+<html>
+	<head>
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <script>
+            window.onload = function(){
+                var button = document.getElementById("button");
+                button.addEventListener("click", fetchMovie);
+                function fetchMovie() {
+                    var query = document.getElementById("searchbox");
+                    window.location.href = "movie_list.html";
+                    localStorage.setItem("query",query.value);
+                }
+            };
+        </script>
+	</head>
+	<body>
+        <div id="message"></div>
+        <div class="container">
+            <h1 class="title">Movie<b>Wiki</b></h1>
+            <div><input class="searchbox" id="searchbox" type="textbox" placeholder="Enter Movie Name"/></div><br>
+            <div style="text-align: center;"><button id="button" class="button">Search</button></div>
+        </div>
+        
+	</body>
+</html>
