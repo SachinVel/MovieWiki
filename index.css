@@ -1,6 +1,8 @@
 body{
-    background-image: linear-gradient(#007fbf, #026da3);
+    background-image: linear-gradient(#007fbf, #002863);
     opacity: 0.8;
+    font-family:verdana;
+    color: #011738;
 }
 .container{
     position: relative;
@@ -10,10 +12,9 @@ body{
     text-align: center;
 }
 .title{
-    color: white;
+    
     text-align: center;
     font-size: 45px;
-    
 }
 
 .searchbox{
@@ -24,5 +25,10 @@ body{
 }
 .button{
     font-size: 20px;
-    color: grey;
+    border-radius: 4px;
+    border : 0px;
+}
+.button:hover{
+    cursor : pointer;
+    opacity : 0.8;
 }

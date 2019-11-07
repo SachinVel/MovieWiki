@@ -3,7 +3,7 @@ body{
 }
 .container{
     position: relative;
-    margin: 20px calc( (100% - 1010px)/2 );
+    margin: 7% calc( (100% - 1010px)/2 );
     height:510px;
     width : 1010px;
     color: white;
@@ -18,11 +18,16 @@ body{
         opacity: 0.8;
         cursor: pointer;
     }
+    .error-display{
+        color: white;
+        font-size: 5em;
+    }
 .hide{
     display: none;
 }
 .button-container{
     float: left;
+    position: fixed;
     width : 60%;
     margin: 0px 20%;
     text-align: center;

@@ -5,6 +5,7 @@ body{
 .container{
     position: relative;
     margin: 0px 17%;
+    margin-top: -10px;
     text-align: center;
     width : 800px;
     height: 80%;
@@ -56,7 +57,10 @@ body{
 .table td{
     width: 50%;
 }
-
+.button-container{
+   margin-top: 10px;
+    float: left;
+}
 .button {
     border : 2px solid white;
     background-color: black;
@@ -91,5 +95,6 @@ body{
     .button-container{
         width:395px;
         text-align: center;
+        float: left;
     }
   }
