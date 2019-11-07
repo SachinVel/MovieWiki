@@ -4,35 +4,30 @@
             <script>
                  window.onload = function(){
                     var title = localStorage.getItem("title");
-                    var xhttp = new XMLHttpRequest();
-                    
-                    xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            var movie = JSON.parse(this.responseText);
-                            console.log(movie);
-
-                            document.getElementById("poster").src = movie.Poster;
-                            document.getElementById("title").innerText = movie.Title;
-                            document.getElementById("year").innerText = movie.Year;
-                            document.getElementById("Rated").innerText = movie.Rated;
-                            document.getElementById("releaseDate").innerText = movie.Released;
-                            document.getElementById("director").innerText = movie.Director;
-                            document.getElementById("genre").innerText = movie.Genre;
-                            document.getElementById("language").innerText = movie.Language;
-                            document.getElementById("metaScore").innerText = movie.Metascore;
-                            document.getElementById("production").innerText = movie.Production;
-                            document.getElementById("actors").innerText = movie.Actors;
-                            document.getElementById("imdbRating").innerText = movie.imdbRating;
-                            document.getElementById("runTime").innerText = movie.Runtime;
-                            document.getElementById("plot").innerText = movie.Plot;
-
-
-
-
-                        }
-                    };
-                    xhttp.open("GET", "http://www.omdbapi.com/?apikey=8792202&t="+title, true);
-                    xhttp.send();
+                    var url = "http://www.omdbapi.com/?apikey=8792202&t="+title;
+                    fetch(url)
+                        .then((res)=>res.json())
+                        .then( function(movie) {
+                                
+                                document.getElementById("poster").src = movie.Poster;
+                                document.getElementById("title").innerText = movie.Title;
+                                document.getElementById("year").innerText = movie.Year;
+                                document.getElementById("Rated").innerText = movie.Rated;
+                                document.getElementById("releaseDate").innerText = movie.Released;
+                                document.getElementById("director").innerText = movie.Director;
+                                document.getElementById("genre").innerText = movie.Genre;
+                                document.getElementById("language").innerText = movie.Language;
+                                document.getElementById("metaScore").innerText = movie.Metascore;
+                                document.getElementById("production").innerText = movie.Production;
+                                document.getElementById("actors").innerText = movie.Actors;
+                                document.getElementById("imdbRating").innerText = movie.imdbRating;
+                                document.getElementById("runTime").innerText = movie.Runtime;
+                                document.getElementById("plot").innerText = movie.Plot;
+                        })
+                        .catch( function(error){
+                                console.error(error);
+                        });
+                
                     document.getElementById("Back").addEventListener("click",function(){
                         window.location.href = "movie_list.html";
                     });
@@ -101,7 +96,7 @@
                 <h3>Plot</h3>
                 <p id="plot">Not Mentioned</p>
             </div>
-            <div style="float: left;" class="button-container"><button class="button" id="Back">GO Back</button></div><br>
+            <div class="button-container"><button class="button" id="Back">GO Back</button></div><br>
         </div>
     </body>
 </html>

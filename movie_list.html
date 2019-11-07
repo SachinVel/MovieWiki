@@ -11,75 +11,185 @@
                     }
              window.onload = function(){
                  var query = localStorage.getItem("query");
-                    var xhttp = new XMLHttpRequest();
+                 var url = "http://www.omdbapi.com/?apikey=8792202&s="+query;
+                 fetch(url)
+                    .then((res) => res.json())
+                    .then( function(data) {
+                        console.log(data);
+                        totalPage = data.totalResults/10;
+                        if( data.Error != null ){
+                            document.getElementById("errorDisplay").classList.remove("hide");
+                            document.getElementById("errorDisplay").innerText = "Oooops! Seems like an error "+
+                                data.Error+" Try again with differen search query...";
+                            document.getElementById("Back").style.display = "none";
+                            document.getElementById("Next").style.display = "none";
+                            return;
+                        }
+                        var movieArray = data.Search;
+                        var container = document.getElementById("container");
+                        totalLength = movieArray.length;
+                        for (var i = 0; i < movieArray.length; i++){
+                            var movie = movieArray[i];
+                            var div = document.createElement("div");
+                            var img = document.createElement("img");
+                            div.id = i+1;
+                            div.classList.add("movie-tile");
+                            div.title = movie.Title;
+                            img.src = movie.Poster;
+                            img.alt = movie.Title;
+                            img.style.width = "100%";
+                            img.style.height = "100%";
+                            if( i>=8 ){
+                                div.classList.add("hide");
+                            }
+                            div.addEventListener("click",function(){
+                                getDetails(this);
+                            });
+                            div.appendChild(img);
+                            container.appendChild(div);
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log('Request failed', error);
+                        document.getElementById("errorDisplay").classList.remove("hide");
+                        document.getElementById("errorDisplay").innerText = "Oooops! Seems like an error "+
+                            error+" Try again with differen search query...";
+                        document.getElementById("Back").style.display = "none";
+                        document.getElementById("Next").style.display = "none";
+                            return;
+                    });
                     
-                    xhttp.onreadystatechange = function() {
-                        
-                        if (this.readyState == 4 && this.status == 200) {
-                            var response = JSON.parse(this.responseText);
-                            if( response.Error != null ){
-                                console.log("Error page");
-                                document.getElementById("errorDisplay").classList.remove("hide");
-                                document.getElementById("errorDisplay").innerText = "Oooops! Seems like an error "+
-                                    response.Error+" Try again with differen search query...";
-                                document.getElementById("Back").style.display = "none";
-                                document.getElementById("Next").style.display = "none";
-                                return;
-                            }
-                            var movieArray = response.Search;
-                            var container = document.getElementById("container");
-                            totalLength = movieArray.length;
-                            for (var i = 0; i < movieArray.length; i++){
-                                var movie = movieArray[i];
-                                var div = document.createElement("div");
-                                var img = document.createElement("img");
-                                div.id = i+1;
-                                div.classList.add("movie-tile");
-                                div.title = movie.Title;
-                                img.src = movie.Poster;
-                                img.style.width = "100%";
-                                img.style.height = "100%";
-                                if( i>=8 ){
-                                    div.classList.add("hide");
-                                }
-                                div.addEventListener("click",function(){
-                                    getDetails(this);
-                                });
-                                div.appendChild(img);
-                                container.appendChild(div);
-                            }
-                        }
-                    };
-                    xhttp.open("GET", "http://www.omdbapi.com/?apikey=8792202&s="+query, true);
-                    xhttp.send();
                     document.getElementById("Back").addEventListener("click",function(){
-                        for( i=currentPage ; i<=(currentPage+7) ; i++ ){
-                            if( document.getElementById(i)!=null ){
-                                document.getElementById(i).classList.add("hide");
-                            }
-                        }
-                        if( currentPage>8 ){
-                            currentPage -= 8;
-                        }
-                        for( i=currentPage ; i<=(currentPage+7) ; i++ ){
-                            if( document.getElementById(i)!=null ){
-                                document.getElementById(i).classList.remove("hide");
-                            }
+                        // for( i=currentPage ; i<=(currentPage+7) ; i++ ){
+                        //     if( document.getElementById(i)!=null ){
+                        //         document.getElementById(i).classList.add("hide");
+                        //     }
+                        // }
+                        // if( currentPage>8 ){
+                        //     currentPage -= 8;
+                        // }
+                        // for( i=currentPage ; i<=(currentPage+7) ; i++ ){
+                        //     if( document.getElementById(i)!=null ){
+                        //         document.getElementById(i).classList.remove("hide");
+                        //     }
+                        // }
+                        if(currentPage>1){
+                            currentPage--;
+                            var url = "http://www.omdbapi.com/?apikey=8792202&s="+query+"&page="+currentPage;
+                            fetch(url)
+                                .then((res) => res.json())
+                                .then( function(data) {
+                                    console.log(data);
+                                    totalPage = data.totalResults/10;
+                                    if( data.Error != null ){
+                                        document.getElementById("errorDisplay").classList.remove("hide");
+                                        document.getElementById("errorDisplay").innerText = "Oooops! Seems like an error "+
+                                            data.Error+" Try again with differen search query...";
+                                        document.getElementById("Back").style.display = "none";
+                                        document.getElementById("Next").style.display = "none";
+                                        return;
+                                    }
+                                    var movieArray = data.Search;
+                                    var container = document.getElementById("container");
+                                    container.innerText = "";
+                                    totalLength = movieArray.length;
+                                    for (var i = 0; i < movieArray.length; i++){
+                                        var movie = movieArray[i];
+                                        var div = document.createElement("div");
+                                        var img = document.createElement("img");
+                                        div.id = i+1;
+                                        div.classList.add("movie-tile");
+                                        div.title = movie.Title;
+                                        img.src = movie.Poster;
+                                        img.alt = movie.Title;
+                                        img.style.width = "100%";
+                                        img.style.height = "100%";
+                                        if( i>=8 ){
+                                            break;
+                                        }
+                                        div.addEventListener("click",function(){
+                                            getDetails(this);
+                                        });
+                                        div.appendChild(img);
+                                        container.appendChild(div);
+                                    }
+                                })
+                                .catch(function(error) {
+                                    console.log('Request failed', error);
+                                    document.getElementById("errorDisplay").classList.remove("hide");
+                                    document.getElementById("errorDisplay").innerText = "Oooops! Seems like an error "+
+                                        error+" Try again with differen search query...";
+                                    document.getElementById("Back").style.display = "none";
+                                    document.getElementById("Next").style.display = "none";
+                                        return;
+                                });
                         }
                     });
                     document.getElementById("Next").addEventListener("click",function(){
-                        for( i=currentPage ; i<=(currentPage+7) ; i++ ){
-                            if( document.getElementById(i)!=null ){
-                                document.getElementById(i).classList.add("hide");
-                            }
-                        }
-                        if( currentPage<=(totalLength-8) ){
-                            currentPage += 8;
-                        }
-                        for( i=currentPage ; i<=(currentPage+7) ; i++ ){
-                            if( document.getElementById(i)!=null ){
-                                document.getElementById(i).classList.remove("hide");
-                            }
+                        // for( i=currentPage ; i<=(currentPage+7) ; i++ ){
+                        //     if( document.getElementById(i)!=null ){
+                        //         document.getElementById(i).classList.add("hide");
+                        //     }
+                        // }
+                        // if( currentPage<=(totalLength-8) ){
+                        //     currentPage += 8;
+                        // }
+                        // for( i=currentPage ; i<=(currentPage+7) ; i++ ){
+                        //     if( document.getElementById(i)!=null ){
+                        //         document.getElementById(i).classList.remove("hide");
+                        //     }
+                        // }
+                        if(currentPage<=totalLength){
+                            currentPage++;
+                            var url = "http://www.omdbapi.com/?apikey=8792202&s="+query+"&page="+currentPage;
+                            fetch(url)
+                                .then((res) => res.json())
+                                .then( function(data) {
+                                    console.log(data);
+                                    totalPage = data.totalResults/10;
+                                    if( data.Error != null ){
+                                        document.getElementById("errorDisplay").classList.remove("hide");
+                                        document.getElementById("errorDisplay").innerText = "Oooops! Seems like an error "+
+                                            data.Error+" Try again with differen search query...";
+                                        document.getElementById("Back").style.display = "none";
+                                        document.getElementById("Next").style.display = "none";
+                                        return;
+                                    }
+                                    var movieArray = data.Search;
+                                    var container = document.getElementById("container");
+                                    container.innerText = "";
+                                    totalLength = movieArray.length;
+                                    for (var i = 0; i < movieArray.length; i++){
+                                        var movie = movieArray[i];
+                                        var div = document.createElement("div");
+                                        var img = document.createElement("img");
+                                        div.id = i+1;
+                                        div.classList.add("movie-tile");
+                                        div.title = movie.Title;
+                                        img.src = movie.Poster;
+                                        img.alt = movie.Title;
+                                        img.style.fontSize = "30px";
+                                        img.style.width = "100%";
+                                        img.style.height = "100%";
+                                        if( i>=8 ){
+                                            break;
+                                        }
+                                        div.addEventListener("click",function(){
+                                            getDetails(this);
+                                        });
+                                        div.appendChild(img);
+                                        container.appendChild(div);
+                                    }
+                                })
+                                .catch(function(error) {
+                                    console.log('Request failed', error);
+                                    document.getElementById("errorDisplay").classList.remove("hide");
+                                    document.getElementById("errorDisplay").innerText = "Oooops! Seems like an error "+
+                                        error+" Try again with differen search query...";
+                                    document.getElementById("Back").style.display = "none";
+                                    document.getElementById("Next").style.display = "none";
+                                        return;
+                                });
                         }
                     });
             };
