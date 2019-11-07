@@ -4,12 +4,14 @@
             <script>
                  window.onload = function(){
                     var title = localStorage.getItem("title");
-                    var url = "http://www.omdbapi.com/?apikey=8792202&t="+title;
+                    var url = "http://www.omdbapi.com/?apikey=8792202&t="+title+"&plot=full";
                     fetch(url)
                         .then((res)=>res.json())
                         .then( function(movie) {
                                 
                                 document.getElementById("poster").src = movie.Poster;
+                                document.getElementById("poster").alt = "Image Not supported";
+                                document.getElementById("poster").style.fontSize = "30px";
                                 document.getElementById("title").innerText = movie.Title;
                                 document.getElementById("year").innerText = movie.Year;
                                 document.getElementById("Rated").innerText = movie.Rated;
