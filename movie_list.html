@@ -17,6 +17,7 @@
                     .then( function(data) {
                         console.log(data);
                         totalPage = data.totalResults/10;
+                        /* To display error message from server */
                         if( data.Error != null ){
                             document.getElementById("errorDisplay").classList.remove("hide");
                             document.getElementById("errorDisplay").innerText = "Oooops! Seems like an error "+
@@ -28,6 +29,7 @@
                         var movieArray = data.Search;
                         var container = document.getElementById("container");
                         totalLength = movieArray.length;
+                        /*To display movie tiles one by one*/
                         for (var i = 0; i < movieArray.length; i++){
                             var movie = movieArray[i];
                             var div = document.createElement("div");
@@ -60,6 +62,8 @@
                             return;
                     });
                     
+
+                    /* adding functions for back and next button below */
                     document.getElementById("Back").addEventListener("click",function(){
                         if(currentPage>1){
                             currentPage--;
