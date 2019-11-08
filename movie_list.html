@@ -61,21 +61,9 @@
                     });
                     
                     document.getElementById("Back").addEventListener("click",function(){
-                        // for( i=currentPage ; i<=(currentPage+7) ; i++ ){
-                        //     if( document.getElementById(i)!=null ){
-                        //         document.getElementById(i).classList.add("hide");
-                        //     }
-                        // }
-                        // if( currentPage>8 ){
-                        //     currentPage -= 8;
-                        // }
-                        // for( i=currentPage ; i<=(currentPage+7) ; i++ ){
-                        //     if( document.getElementById(i)!=null ){
-                        //         document.getElementById(i).classList.remove("hide");
-                        //     }
-                        // }
                         if(currentPage>1){
                             currentPage--;
+                            document.getElementById("page-num").innerText = "Page : "+currentPage;
                             var url = "http://www.omdbapi.com/?apikey=8792202&s="+query+"&page="+currentPage;
                             fetch(url)
                                 .then((res) => res.json())
@@ -128,21 +116,9 @@
                         }
                     });
                     document.getElementById("Next").addEventListener("click",function(){
-                        // for( i=currentPage ; i<=(currentPage+7) ; i++ ){
-                        //     if( document.getElementById(i)!=null ){
-                        //         document.getElementById(i).classList.add("hide");
-                        //     }
-                        // }
-                        // if( currentPage<=(totalLength-8) ){
-                        //     currentPage += 8;
-                        // }
-                        // for( i=currentPage ; i<=(currentPage+7) ; i++ ){
-                        //     if( document.getElementById(i)!=null ){
-                        //         document.getElementById(i).classList.remove("hide");
-                        //     }
-                        // }
                         if(currentPage<=totalLength){
                             currentPage++;
+                            document.getElementById("page-num").innerText = "Page : "+currentPage;
                             var url = "http://www.omdbapi.com/?apikey=8792202&s="+query+"&page="+currentPage;
                             fetch(url)
                                 .then((res) => res.json())
@@ -199,9 +175,9 @@
         </script>
     </head>
     <body>
-        <h1>Movie html file</h1>
         <div class="button-container" style="float: left;">
             <button class="button" id="Back" style="float: left;">Prev</button>
+            <span class="page-num" id="page-num">Page : 1</span>
             <button class="button" id="Next" style="float: right;">Next</button>
         </div>
         <div class="container" id="container" style="clear: both;">

@@ -20,15 +20,20 @@ body{
 .searchbox{
     position: relative;
     left: 35%;
+    border-radius: 5px;
     width: 30%;
     height: 30px;
 }
 .button{
     font-size: 20px;
     border-radius: 4px;
+    box-shadow: 3px 4px #888888;
     border : 0px;
 }
 .button:hover{
     cursor : pointer;
     opacity : 0.8;
+    margin-left: 3px;
+    margin-top: 4px;
+    box-shadow: 0px 0px #888888;
 }

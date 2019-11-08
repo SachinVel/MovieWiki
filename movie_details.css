@@ -1,3 +1,18 @@
+::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 body{
     background-color: black;
 }
@@ -23,7 +38,6 @@ body{
 .img-container img{
     width: 100%;
     height: 100%;
-
 }
 
 .detail-container{
@@ -33,7 +47,7 @@ body{
     height: 540px;
     float: right;
     border : 1px solid white;
-    overflow: scroll;
+    overflow: auto;
 }
 .plot-container{
     width : 395px;
@@ -42,7 +56,7 @@ body{
     border : 1px solid white;
     position: relative;
     display: inline-block;
-    overflow: scroll;
+    overflow: auto;
 
 }
 
@@ -70,8 +84,16 @@ body{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    box-shadow: 3px 4px #4f4f4f;
     margin: 4px 2px;
     cursor: pointer;
+  }
+  .button:hover{
+    cursor : pointer;
+    opacity : 0.8;
+    margin-left: 5px;
+    margin-top: 8px;
+    box-shadow: 0px 0px #888888;
   }
   @media screen and (max-width: 992px) {
     .container{
