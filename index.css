@@ -1,12 +1,16 @@
 body{
-    background-image: linear-gradient(#007fbf, #002863);
+    background: linear-gradient(#007fbf, #002863);
     opacity: 0.8;
     font-family:verdana;
     color: #011738;
+    width: 100%;
+    height : 100%;
 }
 .container{
     position: relative;
-    top: 25%;
+    top: 50%;
+    height: 200px;
+    margin-top: -100px;
 }
 .input-cointainer{
     text-align: center;
@@ -19,9 +23,10 @@ body{
 
 .searchbox{
     position: relative;
-    left: 35%;
+    left: 50%;
+    margin-left: -225px;    
     border-radius: 5px;
-    width: 30%;
+    width: 450px;
     height: 30px;
 }
 .button{

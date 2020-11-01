@@ -19,10 +19,9 @@ body{
 
 .container{
     position: relative;
-    margin: 0px 17%;
-    margin-top: -10px;
+    margin: 0px 10%;
     text-align: center;
-    width : 800px;
+    width: 80%;
     height: 80%;
     color: white;
 }
@@ -30,10 +29,9 @@ body{
     position: relative;
     display: inline-block;
     float: left;
-    width : 395px;
-    height: 395px;
-    border : 1px solid white;
-
+    width: 500px;
+    height: 500px;
+    border: 1px solid white;
 }
 .img-container img{
     width: 100%;
@@ -43,21 +41,19 @@ body{
 .detail-container{
     position: relative;
     display: inline-block;
-    width : 395px;
-    height: 540px;
-    float: right;
-    border : 1px solid white;
+    width: calc( 100% - 504px);
+    height: 500px;
+    float: left;
+    border: 1px solid white;
     overflow: auto;
 }
 .plot-container{
-    width : 395px;
     float: left;
     height: 145px;
-    border : 1px solid white;
+    border: 1px solid white;
     position: relative;
     display: inline-block;
     overflow: auto;
-
 }
 
 .table{
@@ -72,8 +68,8 @@ body{
     width: 50%;
 }
 .button-container{
-   margin-top: 10px;
-    float: left;
+    clear: both;
+    padding: 20px 0px;
 }
 .button {
     border : 2px solid white;
@@ -95,12 +91,12 @@ body{
     margin-top: 8px;
     box-shadow: 0px 0px #888888;
   }
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 1150px) {
     .container{
         position: relative;
-        margin: 0px calc((100% - 395px)/2);
+        margin: 0px calc((100% - 500px)/2);
         text-align: center;
-        width : 395px;
+        width : 500px;
         height: 80%;
         color: white;
     }
@@ -115,7 +111,7 @@ body{
         width: 100%;
     }
     .button-container{
-        width:395px;
+        width:100%;
         text-align: center;
         float: left;
     }
